@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Link from 'next/link'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import PropTypes from 'prop-types'
 import { format, parseISO } from 'date-fns'
@@ -57,10 +58,6 @@ export const EmpleadosLista = ({ empleados, ...rest }) => {
         })
     }
 
-    const abrirDetalle = item => {
-
-    }
-
     return (
         <Card {...rest}>
             <Box p={2}>
@@ -116,48 +113,55 @@ export const EmpleadosLista = ({ empleados, ...rest }) => {
                                 <TableBody>
                                     {
                                         recordsAfterPagingAndSorting().map(item =>
-                                        (<TableRow
-                                            hover
-                                            key={item.clave}
-                                            onClick={() => abrirDetalle(item)}
-                                            sx={{
-                                                cursor: 'pointer'
-                                            }}
-                                        >
-                                            <TableCell>
-                                                <Box
+                                        (
+                                            <Link
+                                                key={item.clave}
+                                                href="/detalle/[clave]"
+                                                as={`/detalle/${item.clave}`}
+                                                passHref >
+                                                <TableRow
+                                                    hover
+                                                    key={item.clave}
                                                     sx={{
-                                                        alignItems: 'center',
-                                                        display: 'flex'
+                                                        cursor: 'pointer'
                                                     }}
                                                 >
-                                                    <Avatar
-                                                        src={item.nivel_homo}
-                                                        sx={{ mr: 2 }}
-                                                    >
-                                                        {getInitials(item.nombre)}
-                                                    </Avatar>
-                                                    <Typography
-                                                        color="textPrimary"
-                                                        variant="body1"
-                                                    >
-                                                        {item.nombre.trim()}
-                                                    </Typography>
-                                                </Box>
-                                            </TableCell>
-
-                                            {lgUp && (
-                                                <>
-                                                    <TableCell>{item.clave}</TableCell>
-                                                    <TableCell>{item.adscripcion}</TableCell>
-                                                    <TableCell>{item.funciones.trim()}</TableCell>
                                                     <TableCell>
-                                                        {format(parseISO(item.fecha_ingreso), 'dd/MM/yyyy')}
+                                                        <Box
+                                                            sx={{
+                                                                alignItems: 'center',
+                                                                display: 'flex'
+                                                            }}
+                                                        >
+                                                            <Avatar
+                                                                src={item.nivel_homo}
+                                                                sx={{ mr: 2 }}
+                                                            >
+                                                                {getInitials(item.nombre)}
+                                                            </Avatar>
+                                                            <Typography
+                                                                color="textPrimary"
+                                                                variant="body1"
+                                                            >
+                                                                {item.nombre.trim()}
+                                                            </Typography>
+                                                        </Box>
                                                     </TableCell>
-                                                </>
-                                            )}
 
-                                        </TableRow>)
+                                                    {lgUp && (
+                                                        <>
+                                                            <TableCell>{item.clave}</TableCell>
+                                                            <TableCell>{item.adscripcion}</TableCell>
+                                                            <TableCell>{item.funciones.trim()}</TableCell>
+                                                            <TableCell>
+                                                                {format(parseISO(item.fecha_ingreso), 'dd/MM/yyyy')}
+                                                            </TableCell>
+                                                        </>
+                                                    )}
+
+                                                </TableRow>
+                                            </Link>
+                                        )
                                         )
                                     }
                                 </TableBody>
