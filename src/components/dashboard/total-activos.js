@@ -1,11 +1,8 @@
-import { Avatar, Box, Card, CardContent, Grid, LinearProgress, Typography } from '@mui/material';
-import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
+import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material'
+import PeopleIcon from '@mui/icons-material/People'
 
-export const TasksProgress = (props) => (
-  <Card
-    sx={{ height: '100%' }}
-    {...props}
-  >
+export const TotalActivos = (props) => (
+  <Card {...props}>
     <CardContent>
       <Grid
         container
@@ -18,33 +15,27 @@ export const TasksProgress = (props) => (
             gutterBottom
             variant="overline"
           >
-            TASKS PROGRESS
+            TOTAL EMPLEADOS
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            75.5%
+            670
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: 'warning.main',
+              backgroundColor: 'success.main',
               height: 56,
               width: 56
             }}
           >
-            <InsertChartIcon />
+            <PeopleIcon />
           </Avatar>
         </Grid>
       </Grid>
-      <Box sx={{ pt: 3 }}>
-        <LinearProgress
-          value={75.5}
-          variant="determinate"
-        />
-      </Box>
     </CardContent>
   </Card>
-);
+)

@@ -6,7 +6,7 @@ export const theme = createTheme({
       xs: 0,
       sm: 600,
       md: 1000,
-      lg: 1200,
+      lg: 1000, //1200
       xl: 1920
     }
   },
@@ -152,7 +152,7 @@ export const theme = createTheme({
       disabled: 'rgba(55, 65, 81, 0.26)'
     },
     background: {
-      default: '#F9FAFC',
+      default: '#eaebed',  //'#F9FAFC'
       paper: '#FFFFFF'
     },
     divider: '#E6E8F0',

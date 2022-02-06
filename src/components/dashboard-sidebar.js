@@ -27,12 +27,12 @@ const items = [
   {
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
+    title: 'cuenta'
   },
   {
     href: '/settings',
     icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
+    title: 'Ajustes'
   },
   {
     href: '/login',
@@ -42,7 +42,7 @@ const items = [
   {
     href: '/register',
     icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
+    title: 'Registro'
   }
 ]
 
