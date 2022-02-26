@@ -30,11 +30,6 @@ const items = [
     title: 'cuenta'
   },
   {
-    href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Ajustes'
-  },
-  {
     href: '/login',
     icon: (<LockIcon fontSize="small" />),
     title: 'Login'

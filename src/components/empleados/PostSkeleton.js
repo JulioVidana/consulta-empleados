@@ -4,7 +4,6 @@ import {
   Grid,
   Stack,
   Skeleton,
-  TextField,
   Typography
 } from '@mui/material'
 
@@ -13,26 +12,56 @@ export const PostSkeleton = () => {
   return (
     <Card >
       <Box p={2}>
-
         <Grid
-          item
-          md={6}
-          xs={12}
+          container
+          spacing={2}
+          justify="flex-start"
+          alignItems="center"
         >
-          <Stack>
-            <Typography variant="h1">
-              <Skeleton />
-            </Typography>
-            {/* <Skeleton width="100%" >
-              <TextField fullWidth />
-            </Skeleton> */}
-          </Stack>
+          <Grid
+            item
+            md={6}
+            sm={6}
+            xs={12}
+          >
+            <Stack>
+              <Typography variant="h1">
+                <Skeleton />
+              </Typography>
+            </Stack>
+
+          </Grid>
+          <Grid
+            item
+            md={3}
+            sm={3}
+            xs={6}
+          >
+            <Stack>
+              <Typography variant="h1">
+                <Skeleton />
+              </Typography>
+            </Stack>
+
+          </Grid>
+          <Grid
+            item
+            md={3}
+            sm={3}
+            xs={6}
+          >
+            <Stack>
+              <Typography variant="h1">
+                <Skeleton />
+              </Typography>
+            </Stack>
+
+          </Grid>
 
         </Grid>
-
       </Box>
 
-      <Stack>
+      <Stack mt={3}>
         <Skeleton
           variant="rectangular"
           width="100%">

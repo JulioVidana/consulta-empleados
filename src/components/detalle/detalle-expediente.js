@@ -13,12 +13,21 @@ import {
   TableRow
 } from '@mui/material'
 import { useQuery } from 'react-query'
-import { getFamilia } from '../../api/apis'
+import { getExpediente } from '../../api/apis'
 import { format, parseISO } from 'date-fns'
 
-export const DetalleFamiliares = ({ data }) => {
+
+export const DetalleExpediente = ({ data }) => {
   const clave = data?.clave
-  const { isLoading, data: familiares = [], error, status, isSuccess } = useQuery(['familiares', clave], () => getFamilia(clave))
+  const { isLoading, data: expediente = [], error, status, isSuccess } = useQuery(['expediente', clave], () => getExpediente(clave))
+
+  /* const expediente = [
+    {
+      id: 1,
+      descripcion: 'EN VIRTUD AL DECRETO DE AUSTERIDAD CAMBIA DEL NIVEL 11 AL 10 SEGUN OFICIO DG0771 ENVIADO A LA',
+      fecha: '16/06/2017'
+    }
+  ] */
 
   if (isLoading) {
     return (
@@ -35,40 +44,32 @@ export const DetalleFamiliares = ({ data }) => {
 
     <Card sx={{ mt: 3 }}>
       <CardHeader
-        title="Familiares"
+        title="Expediente"
       />
       <Divider />
 
       <Box sx={{ minWidth: 300 }}>
         <TableContainer>
-          <Table size='small'>
+          <Table size="small">
             <TableHead>
               <TableRow>
                 <TableCell>
-                  Nombre
+                  Fecha
                 </TableCell>
                 <TableCell>
-                  Parentesco
-                </TableCell>
-                <TableCell>
-                  Fecha Nacimiento
+                  Suceso
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {familiares.map((item) => (
+              {expediente.map((item) => (
                 <TableRow key={item.id} >
                   <TableCell>
-                    {item.nombre}
+                    {format(parseISO(item.fecha), 'dd/MM/yyyy')}
                   </TableCell>
                   <TableCell>
-                    {item.parentesco}
+                    {item.suceso}
                   </TableCell>
-                  <TableCell>
-                    {format(parseISO(item.fecha_naci), 'dd/MM/yyyy')}
-                  </TableCell>
-
-
                 </TableRow>
               ))}
             </TableBody>

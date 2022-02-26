@@ -4,36 +4,13 @@ import { Box, Container } from '@mui/material'
 import { EmpleadosToolbar } from '../components/empleados/empleados-toolbar'
 import { EmpleadosLista } from '../components/empleados/empleados-list-results'
 import { DashboardLayout } from '../components/dashboard-layout'
-import { empleadosData } from '../__mocks__/Empleados'
-import { API_URL } from '../services/settings'
-import { getEmpleados } from '../api/apis'
+import { getEmpleados, getAdscripciones } from '../api/apis'
 import { useQuery } from 'react-query'
 import { PostSkeleton } from 'src/components/empleados/PostSkeleton'
-/* export async function getStaticProps() {
 
-  const res = await fetch(API_URL)
-  const empleadosData = await res.json()
-
-  return {
-    props: {
-      empleadosData
-    }
-  }
-} */
-
-export default function Empleados() {
-  //const [empleados, setEmpleados] = useState([])
-  //console.log(empleadosData)
-  const { isLoading, isFetching, data: empleados = [], refetch, error } = useQuery(['empleados'], getEmpleados)
-
-  /*  useEffect(() => {
-
-     fetch(API_URL)
-       .then((response) => response.json())
-       .then(data => {
-         setEmpleados(data)
-       })
-   }, []) */
+export default function Empleados({ adscripciones }) {
+  const [tipo, setTipo] = useState({ queryllave: 'empleados', tipo: '' })
+  const { isLoading, isFetching, data: empleados = [], refetch, error } = useQuery([tipo.queryllave], () => getEmpleados(tipo.tipo))
 
   return (
     <>
@@ -56,7 +33,11 @@ export default function Empleados() {
               isLoading ?
                 <PostSkeleton />
                 :
-                <EmpleadosLista empleados={empleados} />
+                <EmpleadosLista
+                  empleados={empleados}
+                  setTipo={setTipo}
+                  adscripciones={adscripciones}
+                />
             }
 
           </Box>
@@ -73,3 +54,14 @@ Empleados.getLayout = (page) => (
   </DashboardLayout>
 )
 
+
+export async function getServerSideProps() {
+
+  const adscripcionesData = await getAdscripciones()
+
+  return {
+    props: {
+      adscripciones: adscripcionesData
+    }, // will be passed to the page component as props
+  }
+}

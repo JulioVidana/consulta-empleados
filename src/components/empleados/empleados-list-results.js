@@ -14,17 +14,14 @@ import {
   TableCell,
   TableRow,
   Typography,
-  useMediaQuery,
-  Stack,
-  Skeleton,
-  TextField
+  useMediaQuery
 } from '@mui/material'
 import Tabla from '../Tabla'
+import TableTools from './empleados-table-tool'
 import { getInitials } from '../../utils/get-initials'
-import Controls from '../controls/Controls'
-import { Search as SearchIcon } from 'react-feather'
 
-export const EmpleadosLista = ({ empleados, ...rest }) => {
+
+export const EmpleadosLista = ({ empleados, setTipo, adscripciones, ...rest }) => {
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('sm'), {
     defaultMatches: true,
     noSsr: false
@@ -61,37 +58,16 @@ export const EmpleadosLista = ({ empleados, ...rest }) => {
   return (
     <Card {...rest}>
       <Box p={2}>
-        <Grid
-          container
-          spacing={2}
-          justify="space-between"
-          alignItems="center"
-        >
-          <Grid
-            item
-            md={6}
-            xs={12}
-          >
-            <Controls.Input
-              fullWidth
-              placeholder="Buscar Empleado"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SvgIcon
-                      fontSize="small"
-                      color="action"
-                    >
-                      <SearchIcon />
-                    </SvgIcon>
-                  </InputAdornment>
-                )
-              }}
-              onChange={handleSearch}
-            />
-          </Grid>
-
-        </Grid>
+        <TableTools
+          onChange={handleSearch}
+          setFilterFn={setFilterFn}
+          setSortMenu={setSortMenu}
+          sortMenu={sortMenu}
+          filterFn={filterFn}
+          empleadosList={empleados}
+          setTipo={setTipo}
+          AdscCatalogo={adscripciones}
+        />
       </Box>
 
       <PerfectScrollbar>
@@ -122,7 +98,7 @@ export const EmpleadosLista = ({ empleados, ...rest }) => {
                           }}
                         >
                           <Avatar
-                            src={item.nivel_homo}
+                            src={`/static/fotos/e${item.clave}.jpg`}
                             sx={{ mr: 2 }}
                           >
                             {getInitials(item.nombre)}

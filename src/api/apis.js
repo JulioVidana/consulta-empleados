@@ -13,14 +13,34 @@ const API_URL = 'http://10.0.0.99:1004'
     .then(response => response.json())
 } */
 
-
-const getEmpleados = async () => {
-  const { data } = await axios.get(`${API_URL_2}/Empleados`)
+//activos e inactivos
+const getEmpleados = async (tipo) => {
+  const { data } = await axios.get(`${API_URL_2}/api/empleados/${tipo}`)
   return data
 }
 
-const getOneEmpleado = async (id) => {
-  const { data } = await axios.get(`${API_URL_2}/Empleados/${id}`)
+const getOneEmpleado = async (clave) => {
+  const { data } = await axios.get(`${API_URL_2}/api/empleados/${clave}`)
+  return data
+}
+
+const getExpediente = async (id) => {
+  const { data } = await axios.get(`${API_URL_2}/api/empleados/${id}/expediente`)
+  return data
+}
+
+const getFamilia = async (id) => {
+  const { data } = await axios.get(`${API_URL_2}/api/empleados/${id}/familia`)
+  return data
+}
+
+/* const getInactivos = async () => {
+  const { data } = await axios.get(`${API_URL_2}/api/empleados/inactivos`)
+  return data
+} */
+
+const getAdscripciones = async () => {
+  const { data } = await axios.get(`${API_URL_2}/api/catalogos/adscripciones`)
   return data
 }
 
@@ -38,8 +58,8 @@ const deletePost = (id) => {
 
 export {
   getEmpleados,
-  getOneEmpleado
-  /* createPost,
-  editPost,
-  deletePost, */
+  getOneEmpleado,
+  getExpediente,
+  getFamilia,
+  getAdscripciones
 }

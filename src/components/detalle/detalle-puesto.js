@@ -9,33 +9,17 @@ import {
   Stack,
   Skeleton
 } from '@mui/material'
-import { format, parseISO } from 'date-fns'
 
-export const DatosGenerales = ({ data, isLoading }) => {
+export const DetallePuesto = ({ data, isLoading }) => {
 
   const generales = [
-    { id: 'Dirección', dato: `${data.direccion}, ${data.colNomb}, ${data.ciuNomb}` },
-    { id: 'Teléfono', dato: data.celular },
-    { id: 'Email', dato: data.email },
-    { id: 'Escolaridad', dato: data.escolaridad },
-    { id: 'Lugar de Nacimiento', dato: data.lugNac },
-    {
-      id: 'Fecha de Nacimiento',
-      dato: data.fecNac ? format(parseISO(data.fecNac), 'dd/MM/yyyy') : ''
-    },
-    {
-      id: 'Fecha de Ingreso',
-      dato: data.fecha_ingreso ? format(parseISO(data.fecha_ingreso), 'dd/MM/yyyy') : ''
-    },
-    {
-      id: 'Fecha Base',
-      dato: data.fecha_base && data.fecha_base !== '0001-01-01T00:00:00' ? format(parseISO(data.fecha_base), 'dd/MM/yyyy') : ''
-    },
-    {
-      id: 'Fecha Baja',
-      dato: data.fecha_baja && data.fecha_baja !== '0001-01-01T00:00:00' ? format(parseISO(data.fecha_baja), 'dd/MM/yyyy') : ''
-    }
-
+    { id: 'Adscrito A', dato: data?.adscripcion },
+    { id: 'Plaza', dato: data?.plaza },
+    { id: 'Nvel', dato: data?.nivel },
+    { id: 'Homo', dato: data?.nivel_homo },
+    { id: 'Con Funciones De', dato: data?.funciones },
+    { id: 'Tipo de Nómina', dato: data?.tpoNom },
+    { id: 'Condición Laboral', dato: data?.condLabo }
   ]
 
   if (isLoading) {
@@ -44,17 +28,16 @@ export const DatosGenerales = ({ data, isLoading }) => {
       <Stack sx={{ mt: 3 }}>
         <Skeleton variant="rectangular"
           width='100%'
-          height={240} />
+          height={340} />
       </Stack>
 
     )
   }
-
   return (
 
     <Card sx={{ mt: 3 }}>
       <CardHeader
-        title="Información General"
+        title="Datos de Puesto"
       />
       <Divider />
       <List disablePadding

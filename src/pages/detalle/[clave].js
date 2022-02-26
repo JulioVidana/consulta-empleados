@@ -7,16 +7,21 @@ import { DashboardLayout } from '../../components/dashboard-layout'
 import DetalleTopBar from 'src/components/detalle/detalle-topbar'
 import { DatosGenerales } from 'src/components/detalle/datos-generales'
 import { DetalleFamiliares } from 'src/components/detalle/detalle-familiares'
+import { DetallePuesto } from 'src/components/detalle/detalle-puesto'
+import { DetalleSueldo } from 'src/components/detalle/detalle-sueldo'
+import { DetalleHorario } from 'src/components/detalle/detalle-horario'
+import { DetalleExpediente } from 'src/components/detalle/detalle-expediente'
 import { getOneEmpleado } from '../../api/apis'
 import { useQuery } from 'react-query'
 import Controls from '../../components/controls/Controls'
 
 export default function EmpleadoDetalle() {
   const { query: { clave } } = useRouter()
-  const { isLoading, data: detalle = [], error, status } = useQuery(['empleado', clave], () => getOneEmpleado(clave))
 
+  const { isLoading, data: detalle = [], error, status, isSuccess } = useQuery(['empleado', clave], () => getOneEmpleado(clave))
 
-  const [value, setValue] = useState('1')
+  //const detalle = datos[0]
+  const [value, setValue] = useState('2')
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -44,7 +49,7 @@ export default function EmpleadoDetalle() {
           <Controls.RegresaLink
             href='/empleados'
             texto='Empleados' />
-          <DetalleTopBar data={detalle}
+          <DetalleTopBar data={detalle[0]}
             isLoading={isLoading} />
 
           <Box sx={{ width: '100%', typography: 'body1', mt: 3 }}>
@@ -65,18 +70,22 @@ export default function EmpleadoDetalle() {
               {/* <Divider /> */}
               <TabPanel value="1"
                 sx={{ p: 0 }}>
-                <DatosGenerales data={detalle}
+                <DatosGenerales data={detalle[0]}
                   isLoading={isLoading} />
-                <DetalleFamiliares data={detalle}
-                  isLoading={isLoading} />
+                <DetalleFamiliares data={detalle[0]} />
               </TabPanel>
               <TabPanel value="2"
                 sx={{ p: 0 }}>
-                Nómina
+                <DetallePuesto data={detalle[0]}
+                  isLoading={isLoading} />
+                <DetalleSueldo data={detalle[0]}
+                  isLoading={isLoading} />
+                <DetalleHorario data={detalle[0]}
+                  isLoading={isLoading} />
               </TabPanel>
               <TabPanel value="3"
                 sx={{ p: 0 }}>
-                Expediente
+                <DetalleExpediente data={detalle[0]} />
               </TabPanel>
             </TabContext>
           </Box>
