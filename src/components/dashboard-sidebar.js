@@ -1,16 +1,9 @@
 import { useEffect } from 'react'
-import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
-import { Box, Divider, Drawer, Typography, useMediaQuery } from '@mui/material'
+import { Box, Divider, Drawer, useMediaQuery } from '@mui/material'
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar'
-import { Cog as CogIcon } from '../icons/cog'
-import { Lock as LockIcon } from '../icons/lock'
-import { Selector as SelectorIcon } from '../icons/selector'
-import { User as UserIcon } from '../icons/user'
-import { UserAdd as UserAddIcon } from '../icons/user-add'
 import { Users as UsersIcon } from '../icons/users'
-import { Logo } from './logo'
 import { NavItem } from './nav-item'
 
 const items = [
@@ -23,27 +16,12 @@ const items = [
     href: '/empleados',
     icon: (<UsersIcon fontSize="small" />),
     title: 'Empleados'
-  },
-  {
-    href: '/account',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'cuenta'
-  },
-  {
-    href: '/login',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Registro'
   }
 ]
 
 export const DashboardSidebar = (props) => {
-  const { open, onClose } = props;
-  const router = useRouter();
+  const { open, onClose } = props
+  const router = useRouter()
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false
@@ -52,11 +30,11 @@ export const DashboardSidebar = (props) => {
   useEffect(
     () => {
       if (!router.isReady) {
-        return;
+        return
       }
 
       if (open) {
-        onClose?.();
+        onClose?.()
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,45 +50,7 @@ export const DashboardSidebar = (props) => {
           height: '100%'
         }}
       >
-        <div>
-          <Box sx={{ pt: 2, pl: 2, pr: 2 }}>
-            <NextLink
-              href="/"
-              passHref
-            >
-              <Box
-                sx={{
-                  alignItems: 'center',
-                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  px: 3,
-                  py: '11px',
-                  borderRadius: 1
-                }}
-              >
-                <div>
-                  <Typography
-                    color="inherit"
-                    variant='subtitle1'
-                  >
-                    CONSULTA DE EMPLEADOS
-                  </Typography>
-
-                </div>
-
-              </Box>
-            </NextLink>
-          </Box>
-        </div>
-        <Divider
-          sx={{
-            borderColor: '#2D3748',
-            my: 3
-          }}
-        />
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, mt: 3 }}>
           {items.map((item) => (
             <NavItem
               key={item.title}
@@ -124,7 +64,7 @@ export const DashboardSidebar = (props) => {
 
       </Box>
     </>
-  );
+  )
 
   if (lgUp) {
     return (
@@ -144,7 +84,7 @@ export const DashboardSidebar = (props) => {
       >
         {content}
       </Drawer>
-    );
+    )
   }
 
   return (
@@ -164,10 +104,10 @@ export const DashboardSidebar = (props) => {
     >
       {content}
     </Drawer>
-  );
-};
+  )
+}
 
 DashboardSidebar.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool
-};
+}

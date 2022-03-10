@@ -3,8 +3,6 @@ import {
   CardHeader,
   Divider,
   Box,
-  Stack,
-  Skeleton,
   TableContainer,
   Table,
   TableBody,
@@ -13,24 +11,24 @@ import {
   TableRow
 } from '@mui/material'
 import { useQuery } from 'react-query'
-import { getFamilia } from '../../api/apis'
+import { getFamilia } from 'src/services/apis'
 import { format, parseISO } from 'date-fns'
+import { useError } from 'src/hooks/useError'
+import { PostSkeleton } from 'src/components/PostSkeleton'
+
 
 export const DetalleFamiliares = ({ data }) => {
+  const { addError } = useError()
   const clave = data?.clave
-  const { isLoading, data: familiares = [], error, status, isSuccess } = useQuery(['familiares', clave], () => getFamilia(clave))
+  const { isLoading, data: familiares = [] } = useQuery(['familiares', clave], () => getFamilia(clave), {
+    onError: (error) =>
+      addError(`Ups!: ${error.message}`)
+  })
 
   if (isLoading) {
-    return (
-
-      <Stack sx={{ mt: 3 }}>
-        <Skeleton variant="rectangular"
-          width='100%'
-          height={240} />
-      </Stack>
-
-    )
+    return <PostSkeleton altura={240} marginTop={3} />
   }
+
   return (
 
     <Card sx={{ mt: 3 }}>

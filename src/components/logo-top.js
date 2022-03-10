@@ -2,28 +2,29 @@ import { Box } from '@mui/material'
 
 const Logo = (props) => {
 
-    return (
-        <>
-            <Box
-                display="flex"
-                alignItems="center"
-            >
-                <img
-                    alt="Logo"
-                    src="/static/logo-sistemasDIF.png"
-                    {...props}
-                />
+  return (
+    <>
+      <Box
+        display="flex"
+        alignItems="center"
+        sx={{ cursor: 'pointer' }}
+      >
+        <img
+          alt="Logo"
+          src="/static/logo-sistemasDIF1.png"
+          {...props}
+        />
 
-            </Box>
-            <style jsx>{`
+      </Box>
+      <style jsx>{`
                 img {
-                    width: 50%;
+                  height:40px;
                 }
             `}
 
-            </style>
-        </>
-    )
+      </style>
+    </>
+  )
 }
 
 export default Logo

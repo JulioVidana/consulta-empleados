@@ -3,8 +3,6 @@ import {
   CardHeader,
   Divider,
   Box,
-  Stack,
-  Skeleton,
   TableContainer,
   Table,
   TableBody,
@@ -13,6 +11,7 @@ import {
   TableRow
 } from '@mui/material'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { PostSkeleton } from 'src/components/PostSkeleton'
 
 export const DetalleHorario = ({ data, isLoading }) => {
 
@@ -32,15 +31,7 @@ export const DetalleHorario = ({ data, isLoading }) => {
     { id: 'Checa', dato: data?.checa }
   ]
   if (isLoading) {
-    return (
-
-      <Stack sx={{ mt: 3 }}>
-        <Skeleton variant="rectangular"
-          width='100%'
-          height={140} />
-      </Stack>
-
-    )
+    return <PostSkeleton altura={140} marginTop={3} />
   }
   return (
 

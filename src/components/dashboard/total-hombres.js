@@ -1,8 +1,8 @@
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material'
 import MaleIcon from '@mui/icons-material/Male'
 
-export const TotalHombres = (props) => (
-  <Card {...props}>
+export const TotalHombres = ({ data }) => (
+  <Card>
     <CardContent>
       <Grid
         container
@@ -21,7 +21,7 @@ export const TotalHombres = (props) => (
             color="textPrimary"
             variant="h4"
           >
-            214
+            {data.hombre}
           </Typography>
         </Grid>
         <Grid item>

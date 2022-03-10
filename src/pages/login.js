@@ -1,18 +1,38 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
-import NextLink from 'next/link'
 import { useRouter } from 'next/router'
+import { signIn, getCsrfToken, getSession, useSession } from 'next-auth/react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { Box, Button, Container, Grid, Avatar, TextField, Typography } from '@mui/material'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import Logo from 'src/components/logo-top'
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Backdrop,
+  CircularProgress,
+  TextField,
+  Typography
+} from '@mui/material'
+import { useError } from 'src/hooks/useError'
 
 const Login = () => {
-  const router = useRouter();
+  const router = useRouter()
+  const { addError } = useError()
+  const { status } = useSession()
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/')
+    }
+  }, [status, router])
+
+
+
   const formik = useFormik({
     initialValues: {
-      email: 'usuario@difson.gob.mx',
-      password: 'Password123'
+      email: '',
+      password: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -28,10 +48,22 @@ const Login = () => {
         .required(
           'Contraseña es requerida')
     }),
-    onSubmit: () => {
-      router.push('/');
+    onSubmit: async (values) => {
+
+      const res = await signIn('credentials', {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+        callbackUrl: `${window.location.origin}`
+      })
+      //console.log(res)
+      if (res?.error) {
+        addError(res.error, res.status)
+      } else {
+        router.push(res.url)
+      }
     }
-  });
+  })
 
   return (
     <>
@@ -59,7 +91,7 @@ const Login = () => {
               alt="Logo"
               src="/static/logo-sistemasDIF.png"
             />
-            <Typography Typography
+            <Typography
               color="textPrimary"
               variant="h4"
               mt={3}
@@ -88,6 +120,7 @@ const Login = () => {
               type="email"
               value={formik.values.email}
               variant="outlined"
+              color='secondary'
               focused
             />
             <TextField
@@ -102,12 +135,12 @@ const Login = () => {
               type="password"
               value={formik.values.password}
               variant="outlined"
+              color='secondary'
               focused
             />
             <Box sx={{ py: 2 }}>
               <Button
-                color="primary"
-                disabled={formik.isSubmitting}
+                color="secondary"
                 fullWidth
                 size="large"
                 type="submit"
@@ -120,8 +153,22 @@ const Login = () => {
           </form>
         </Container>
       </Box>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={false} >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
-  );
-};
+  )
+}
+// This is the recommended way for Next.js 9.3 or newer
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+      session: await getSession(context),
+    },
+  };
+}
 
-export default Login;
+export default Login

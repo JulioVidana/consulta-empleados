@@ -11,14 +11,22 @@ import { DetallePuesto } from 'src/components/detalle/detalle-puesto'
 import { DetalleSueldo } from 'src/components/detalle/detalle-sueldo'
 import { DetalleHorario } from 'src/components/detalle/detalle-horario'
 import { DetalleExpediente } from 'src/components/detalle/detalle-expediente'
-import { getOneEmpleado } from '../../api/apis'
+import { getOneEmpleado } from 'src/services/apis'
 import { useQuery } from 'react-query'
+import { useSession } from 'next-auth/react'
 import Controls from '../../components/controls/Controls'
+import { useError } from 'src/hooks/useError'
 
 export default function EmpleadoDetalle() {
+  const { addError } = useError()
+  const { data: session } = useSession()
+  const { user } = session
   const { query: { clave } } = useRouter()
 
-  const { isLoading, data: detalle = [], error, status, isSuccess } = useQuery(['empleado', clave], () => getOneEmpleado(clave))
+  const { isLoading, data: detalle = [] } = useQuery(['empleado', clave], () => getOneEmpleado(clave, user.token), {
+    onError: (error) =>
+      addError(`Ups!: ${error.message}`)
+  })
 
   //const detalle = datos[0]
   const [value, setValue] = useState('2')
@@ -27,9 +35,6 @@ export default function EmpleadoDetalle() {
     setValue(newValue)
   }
 
-  if (error) {
-    console.log("error: " + error)
-  }
 
   return (
     <>

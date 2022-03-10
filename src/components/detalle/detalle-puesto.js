@@ -6,9 +6,8 @@ import {
   List,
   ListItem,
   ListItemText,
-  Stack,
-  Skeleton
 } from '@mui/material'
+import { PostSkeleton } from 'src/components/PostSkeleton'
 
 export const DetallePuesto = ({ data, isLoading }) => {
 
@@ -23,15 +22,7 @@ export const DetallePuesto = ({ data, isLoading }) => {
   ]
 
   if (isLoading) {
-    return (
-
-      <Stack sx={{ mt: 3 }}>
-        <Skeleton variant="rectangular"
-          width='100%'
-          height={340} />
-      </Stack>
-
-    )
+    return <PostSkeleton altura={340} marginTop={3} />
   }
   return (
 

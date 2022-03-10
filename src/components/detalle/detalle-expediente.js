@@ -3,8 +3,6 @@ import {
   CardHeader,
   Divider,
   Box,
-  Stack,
-  Skeleton,
   TableContainer,
   Table,
   TableBody,
@@ -13,33 +11,25 @@ import {
   TableRow
 } from '@mui/material'
 import { useQuery } from 'react-query'
-import { getExpediente } from '../../api/apis'
+import { getExpediente } from 'src/services/apis'
 import { format, parseISO } from 'date-fns'
+import { useError } from 'src/hooks/useError'
+import { PostSkeleton } from 'src/components/PostSkeleton'
 
 
 export const DetalleExpediente = ({ data }) => {
+  const { addError } = useError()
   const clave = data?.clave
-  const { isLoading, data: expediente = [], error, status, isSuccess } = useQuery(['expediente', clave], () => getExpediente(clave))
+  const { isLoading, data: expediente = [] } = useQuery(['expediente', clave], () => getExpediente(clave), {
+    onError: (error) =>
+      addError(`Ups!: ${error.message}`)
+  })
 
-  /* const expediente = [
-    {
-      id: 1,
-      descripcion: 'EN VIRTUD AL DECRETO DE AUSTERIDAD CAMBIA DEL NIVEL 11 AL 10 SEGUN OFICIO DG0771 ENVIADO A LA',
-      fecha: '16/06/2017'
-    }
-  ] */
 
   if (isLoading) {
-    return (
-
-      <Stack sx={{ mt: 3 }}>
-        <Skeleton variant="rectangular"
-          width='100%'
-          height={240} />
-      </Stack>
-
-    )
+    return <PostSkeleton altura={240} marginTop={3} />
   }
+
   return (
 
     <Card sx={{ mt: 3 }}>

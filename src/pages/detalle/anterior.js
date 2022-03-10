@@ -6,7 +6,7 @@ import DetalleProfile from 'src/components/detalle/detalle-profile'
 import DetalleGenerales from 'src/components/detalle/detalle-generales'
 import SkeletonProfile from 'src/components/detalle/Skeleton-Profile'
 import SkeletonGenerales from 'src/components/detalle/Skeleton-Generales'
-import { getOneEmpleado } from '../../api/apis'
+import { getOneEmpleado } from 'src/services/apis'
 import { useQuery } from 'react-query'
 export default function EmpleadoDetalle() {
   const { query: { clave } } = useRouter()

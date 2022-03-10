@@ -5,11 +5,10 @@ import {
   Typography,
   List,
   ListItem,
-  ListItemText,
-  Stack,
-  Skeleton
+  ListItemText
 } from '@mui/material'
 import { format, parseISO } from 'date-fns'
+import { PostSkeleton } from 'src/components/PostSkeleton'
 
 export const DatosGenerales = ({ data, isLoading }) => {
 
@@ -39,15 +38,7 @@ export const DatosGenerales = ({ data, isLoading }) => {
   ]
 
   if (isLoading) {
-    return (
-
-      <Stack sx={{ mt: 3 }}>
-        <Skeleton variant="rectangular"
-          width='100%'
-          height={240} />
-      </Stack>
-
-    )
+    return <PostSkeleton altura={240} marginTop={3} />
   }
 
   return (

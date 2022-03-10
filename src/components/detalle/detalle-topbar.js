@@ -36,7 +36,7 @@ const DetalleTopBar = ({ data, isLoading }) => {
               sx={{ height: 64, mr: 2, width: 64 }} />
             :
             <Avatar
-              src={`/static/fotos/e${data.clave}.jpg`}
+              src={`/static/fotos/e${data?.clave}.jpg`}
               sx={{ height: 64, mr: 2, width: 64 }} />
         }
 
@@ -57,14 +57,14 @@ const DetalleTopBar = ({ data, isLoading }) => {
             :
             <div>
               <Typography variant="h4" >
-                {data.nombre}
+                {data?.nombre}
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Typography variant="subtitle2">
                   Clave de Empleado:
                 </Typography>
                 <Chip
-                  label={data.clave}
+                  label={data?.clave}
                   sx={{ ml: 1 }} />
               </Box>
             </div>

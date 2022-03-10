@@ -4,13 +4,25 @@ import { Box, Container } from '@mui/material'
 import { EmpleadosToolbar } from '../components/empleados/empleados-toolbar'
 import { EmpleadosLista } from '../components/empleados/empleados-list-results'
 import { DashboardLayout } from '../components/dashboard-layout'
-import { getEmpleados, getAdscripciones } from '../api/apis'
+import { getEmpleados, getAdscripciones } from 'src/services/apis'
 import { useQuery } from 'react-query'
 import { PostSkeleton } from 'src/components/empleados/PostSkeleton'
+import { useSession } from 'next-auth/react'
+import { useError } from 'src/hooks/useError'
+
 
 export default function Empleados({ adscripciones }) {
+  const { addError } = useError()
+
+  const { data: session } = useSession()
+  const { user } = session
+
   const [tipo, setTipo] = useState({ queryllave: 'empleados', tipo: '' })
-  const { isLoading, isFetching, data: empleados = [], refetch, error } = useQuery([tipo.queryllave], () => getEmpleados(tipo.tipo))
+  const { isLoading, data: empleados = [] } = useQuery([tipo.queryllave], () => getEmpleados(tipo.tipo, user.token), {
+    onError: (error) =>
+      addError(`Ups!: ${error.message}`)
+  })
+
 
   return (
     <>

@@ -3,8 +3,6 @@ import {
   CardHeader,
   Divider,
   Box,
-  Stack,
-  Skeleton,
   TableContainer,
   Table,
   TableBody,
@@ -12,6 +10,7 @@ import {
   TableHead,
   TableRow
 } from '@mui/material'
+import { PostSkeleton } from 'src/components/PostSkeleton'
 
 
 export const DetalleSueldo = ({ data, isLoading }) => {
@@ -24,15 +23,7 @@ export const DetalleSueldo = ({ data, isLoading }) => {
   })
 
   if (isLoading) {
-    return (
-
-      <Stack sx={{ mt: 3 }}>
-        <Skeleton variant="rectangular"
-          width='100%'
-          height={140} />
-      </Stack>
-
-    )
+    return <PostSkeleton altura={140} marginTop={3} />
   }
   return (
 

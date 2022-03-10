@@ -1,105 +1,118 @@
 import Head from 'next/head';
-import { Box, Container, Grid } from '@mui/material'
+import {
+  Box,
+  Container,
+  Grid,
+} from '@mui/material'
 import { TotalActivos } from '../components/dashboard/total-activos'
 import { TotalMujeres } from '../components/dashboard/total-mujeres'
 import { TotalHombres } from '../components/dashboard/total-hombres'
-import { LatestOrders } from '../components/dashboard/latest-orders'
-import { LatestProducts } from '../components/dashboard/latest-products'
-import { Edades } from '../components/dashboard/edades'
 import { DashboardLayout } from '../components/dashboard-layout'
-import { Adscripciones } from '../components/dashboard/adscripciones'
+import { ChartEdades } from '../components/dashboard/ChartEdades'
+import { getTotales, getEdades } from 'src/services/apis'
+import { useQuery } from 'react-query'
+import { useError } from 'src/hooks/useError'
+import { PostSkeleton } from '../components/PostSkeleton'
 
-const Dashboard = () => (
-  <>
-    <Head>
-      <title>
-        Dashboard | Consulta Empleados
-      </title>
-    </Head>
-    <Box
-      component="main"
-      sx={{
-        flexGrow: 1,
-        py: 8
-      }}
-    >
-      <Container maxWidth={false}>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            lg={4}
-            md={4}
-            sm={6}
-            xl={4}
-            xs={12}
-          >
-            <TotalActivos />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={4}
-            sm={6}
-            xl={4}
-            xs={12}
-          >
-            <TotalMujeres />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={4}
-            sm={6}
-            xl={4}
-            xs={12}
-          >
-            <TotalHombres />
-          </Grid>
+const Dashboard = () => {
+  const { addError } = useError()
 
+  const { isLoading, data: totales = [] } = useQuery(['totales'], () => getTotales(), {
+    onError: (error) =>
+      addError(`Ups!: ${error.message}`)
+  })
+
+  const { isLoading: cargando, data: edades = [] } = useQuery(['edades'], () => getEdades(), {
+    onError: (error) =>
+      addError(`Ups!: ${error.message}`)
+  })
+
+  return (
+    <>
+      <Head>
+        <title>
+          Dashboard | Consulta Empleados
+        </title>
+      </Head>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: 8
+        }}
+      >
+        <Container maxWidth={false}>
           <Grid
-            item
-            lg={8}
-            md={6}
-            xl={9}
-            xs={12}
+            container
+            spacing={3}
           >
-            <Adscripciones />
+            <Grid
+              item
+              lg={4}
+              md={4}
+              sm={6}
+              xl={4}
+              xs={12}
+            >
+              {
+                isLoading ?
+                  <PostSkeleton altura={124} />
+                  :
+                  <TotalActivos data={totales[0]} />
+              }
+            </Grid>
+            <Grid
+              item
+              lg={4}
+              md={4}
+              sm={6}
+              xl={4}
+              xs={12}
+            >
+              {
+                isLoading ?
+                  <PostSkeleton altura={124} />
+                  :
+                  <TotalMujeres data={totales[0]} />
+              }
+            </Grid>
+            <Grid
+              item
+              lg={4}
+              md={4}
+              sm={6}
+              xl={4}
+              xs={12}
+            >
+              {
+                isLoading ?
+                  <PostSkeleton altura={124} />
+                  :
+                  <TotalHombres data={totales[0]} />
+              }
+            </Grid>
+
+            <Grid
+              item
+              lg={12}
+              md={6}
+              xl={8}
+              xs={12}
+            >
+              {
+                cargando ?
+                  <PostSkeleton altura={424} />
+                  :
+                  <ChartEdades rangoEdades={edades} />
+              }
+            </Grid>
+
           </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <Edades sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <LatestOrders />
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
-  </>
-);
+        </Container>
+      </Box>
+    </>
+  )
+}
 
 Dashboard.getLayout = (page) => (
   <DashboardLayout>
