@@ -1,0 +1,62 @@
+.cuerpo{
+  min-height: 100%;
+/*   background: #eee;
+ */  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #222;
+  font-size: 14px;
+  line-height: 26px;
+  padding-bottom: 50px;
+}
+.container {
+  max-width: 900px;
+  background: #fff;
+  margin: 0px auto 0px;
+  box-shadow: 1px 1px 2px #DAD7D7;
+  border-radius: 3px;
+  padding: 30px 20px 30px 20px;
+  margin-top: 50px;
+}
+
+.header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ /* margin-top: 1.5em; */
+}
+
+.headshot{
+  color: #1d1d1d;
+  font-size: 15px;
+  line-height: 22px;
+  max-width: 440px;
+  padding: 3px 0 3px 66px;
+  position: relative;
+  margin-right: 1em;
+  margin-top: 1em;
+}
+
+.headshot img{
+  border-radius: 50%;
+height: 50px;
+width: 50px;
+position: absolute;
+top: 0;
+left: 0;
+margin-right: 16px;
+}
+
+  .fullName {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .firstName {
+    font-weight: 600;
+  }
+
+  .clave {
+    font-weight: 300;
+    margin-right: 10px;
+  }

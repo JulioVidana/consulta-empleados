@@ -12,12 +12,24 @@ import {
 import Controls from '../controls/Controls'
 import { Search as SearchIcon } from 'react-feather'
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore'
-import SortBar from '../controls/sortBar'
+import SortBar from 'src/components/controls/SortBar'
+
+
+const catConLaboral = [
+  { clave: "BASE", nombre: "BASE" },
+  { clave: "CONFIANZA", nombre: "CONFIANZA" },
+  { clave: "COMISIONADO", nombre: "COMISIONADO" }
+]
 
 const menuItems = [
   { value: 'Activos', label: 'Activos' },
   { value: 'Bajas', label: 'Bajas' },
-  { value: 'Adscripción', label: 'Adscripción' }
+  { value: 'Adscripción', label: 'Adscripción' },
+  { value: 'CondicionLaboral', label: 'Condicion Laboral' },
+  { value: 'Mujeres', label: 'Mujeres' },
+  { value: 'Hombres', label: 'Hombres' },
+  { value: 'Compensacion', label: 'Compensacion' }
+
 ]
 
 const TableTools = ({
@@ -48,6 +60,8 @@ const TableTools = ({
         switch (filtroTipo.tipo) {
           case 'Adscripción':
             return items.filter(x => x.id_adscripcion.includes(filtro))
+          case 'CondicionLaboral':
+            return items.filter(x => x.condLabo.includes(filtro))
           default:
             return items
         }
@@ -60,8 +74,10 @@ const TableTools = ({
 
     if (filtro === 'Adscripción') {
       setFiltroTipo({ ...filtroTipo, activa: false, tipo: filtro, catalogo: AdscCatalogo })
+    } else if (filtro === 'CondicionLaboral') {
+      setFiltroTipo({ ...filtroTipo, activa: false, tipo: filtro, catalogo: catConLaboral })
     } else {
-      setFiltroTipo({ ...filtroTipo, activa: true, value: '' })
+      setFiltroTipo({ ...filtroTipo, activa: true })
     }
 
     filtro === 'Bajas' ?
@@ -74,6 +90,12 @@ const TableTools = ({
     setFilterFn({
       fn: items => {
         switch (filtro) {
+          case 'Mujeres':
+            return items.filter(x => x.sexo == 1)
+          case 'Hombres':
+            return items.filter(x => x.sexo == 2)
+          case 'Compensacion':
+            return items.filter(x => x.compensacion !== 0.00)
           default:
             return items
         }

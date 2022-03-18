@@ -19,7 +19,8 @@ export const DashboardNavbar = (props) => {
 
   const usuario =
   {
-    nombre: user.nombre,
+    clave: user.clave,
+    nombre: user.nombre + ' ' + user.apaterno,
     imagen: '/static/images/avatars/avatar_1.png',
     rol: 'Activo'
   }

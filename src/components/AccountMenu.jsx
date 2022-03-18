@@ -1,9 +1,9 @@
-import * as React from 'react';
+import * as React from 'react'
+import Link from 'next/link'
 import {
   Menu,
   MenuItem,
   ListItemIcon,
-  Button,
   Divider,
   Avatar,
   IconButton,
@@ -12,7 +12,7 @@ import {
   Typography
 } from '@mui/material'
 import { Person, Settings, Logout } from '@mui/icons-material'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { signOut } from "next-auth/react"
 
 
 export default function AccountMenu({ usrData, auth }) {
@@ -37,7 +37,10 @@ export default function AccountMenu({ usrData, auth }) {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+            <Avatar
+              src={`/static/images/avatars/E${usrData?.clave}.jpg`}
+              sx={{ width: 32, height: 32 }} />
+
           </IconButton>
         </Tooltip>
       </Box>
@@ -91,12 +94,17 @@ export default function AccountMenu({ usrData, auth }) {
           </Typography>
         </Box>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <Person fontSize="small" />
-          </ListItemIcon>
-          Mi Perfil
-        </MenuItem>
+        <Link
+          href={`/detalle/${usrData?.clave}`}
+          passHref
+        >
+          <MenuItem>
+            <ListItemIcon>
+              <Person fontSize="small" />
+            </ListItemIcon>
+            Mi Perfil
+          </MenuItem>
+        </Link>
         <MenuItem>
           <ListItemIcon>
             <Settings fontSize="small" />

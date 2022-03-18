@@ -31,7 +31,10 @@ export const DetalleHorario = ({ data, isLoading }) => {
     { id: 'Checa', dato: data?.checa }
   ]
   if (isLoading) {
-    return <PostSkeleton altura={140} marginTop={3} />
+    return (
+      <PostSkeleton
+        altura={140}
+        marginTop={3} />)
   }
   return (
 

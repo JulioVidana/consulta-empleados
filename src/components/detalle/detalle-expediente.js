@@ -10,24 +10,17 @@ import {
   TableHead,
   TableRow
 } from '@mui/material'
-import { useQuery } from 'react-query'
-import { getExpediente } from 'src/services/apis'
 import { format, parseISO } from 'date-fns'
-import { useError } from 'src/hooks/useError'
 import { PostSkeleton } from 'src/components/PostSkeleton'
 
 
-export const DetalleExpediente = ({ data }) => {
-  const { addError } = useError()
-  const clave = data?.clave
-  const { isLoading, data: expediente = [] } = useQuery(['expediente', clave], () => getExpediente(clave), {
-    onError: (error) =>
-      addError(`Ups!: ${error.message}`)
-  })
-
+export const DetalleExpediente = ({ expediente, isLoading }) => {
 
   if (isLoading) {
-    return <PostSkeleton altura={240} marginTop={3} />
+    return (
+      <PostSkeleton
+        altura={240}
+        marginTop={3} />)
   }
 
   return (

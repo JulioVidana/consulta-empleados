@@ -1,7 +1,7 @@
-import { Box, Typography, Grid, Button, Avatar, Chip, Skeleton } from '@mui/material'
+import { Box, Typography, Grid, Button, Avatar, Chip, Skeleton, IconButton } from '@mui/material'
 import PrintIcon from '@mui/icons-material/Print'
 
-const DetalleTopBar = ({ data, isLoading }) => {
+const DetalleTopBar = ({ data, isLoading, setOpenPopUp, setOpenPopUpPrint }) => {
 
   /*  const imgExist = (url) => {
 
@@ -35,9 +35,15 @@ const DetalleTopBar = ({ data, isLoading }) => {
               variant="circular"
               sx={{ height: 64, mr: 2, width: 64 }} />
             :
-            <Avatar
-              src={`/static/fotos/e${data?.clave}.jpg`}
-              sx={{ height: 64, mr: 2, width: 64 }} />
+            <IconButton
+              onClick={() => setOpenPopUp(true)}
+              size="small"
+              sx={{ mr: 2 }}
+            >
+              <Avatar
+                src={`/static/images/avatars/E${data?.clave}.jpg`}
+                sx={{ height: 64, width: 64 }} />
+            </IconButton>
         }
 
         {
@@ -80,6 +86,7 @@ const DetalleTopBar = ({ data, isLoading }) => {
           variant='outlined'
           endIcon={(<PrintIcon fontSize="small" />)}
           sx={{ mr: 1 }}
+          onClick={() => setOpenPopUpPrint(true)}
         >
           Imprimir
         </Button>

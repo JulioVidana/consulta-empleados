@@ -23,7 +23,10 @@ export const DetalleSueldo = ({ data, isLoading }) => {
   })
 
   if (isLoading) {
-    return <PostSkeleton altura={140} marginTop={3} />
+    return (
+      <PostSkeleton
+        altura={140}
+        marginTop={3} />)
   }
   return (
 

@@ -39,7 +39,7 @@ export default function Empleados({ adscripciones }) {
         }}
       >
         <Container maxWidth={false}>
-          <EmpleadosToolbar />
+          <EmpleadosToolbar empleadosData={empleados} />
           <Box sx={{ mt: 3 }}>
             {
               isLoading ?

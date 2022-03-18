@@ -75,7 +75,7 @@ export const DashboardSidebar = (props) => {
           sx: {
             backgroundColor: 'neutral.900',
             color: '#FFFFFF',
-            width: 260,
+            width: 230,
             top: 64,
             height: 'calc(100% - 64px)'
           }
@@ -96,7 +96,7 @@ export const DashboardSidebar = (props) => {
         sx: {
           backgroundColor: 'neutral.900',
           color: '#FFFFFF',
-          width: 260
+          width: 230
         }
       }}
       sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}

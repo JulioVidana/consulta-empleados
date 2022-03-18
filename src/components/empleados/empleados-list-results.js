@@ -98,7 +98,7 @@ export const EmpleadosLista = ({ empleados, setTipo, adscripciones, ...rest }) =
                           }}
                         >
                           <Avatar
-                            src={`/static/fotos/e${item.clave}.jpg`}
+                            src={`/static/images/avatars/E${item.clave}.jpg`}
                             sx={{ mr: 2 }}
                           >
                             {getInitials(item.nombre)}

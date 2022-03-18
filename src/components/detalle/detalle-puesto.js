@@ -22,7 +22,10 @@ export const DetallePuesto = ({ data, isLoading }) => {
   ]
 
   if (isLoading) {
-    return <PostSkeleton altura={340} marginTop={3} />
+    return (
+      <PostSkeleton
+        altura={340}
+        marginTop={3} />)
   }
   return (
 

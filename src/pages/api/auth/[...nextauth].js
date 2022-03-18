@@ -8,6 +8,11 @@ export default NextAuth({
     logo: "/static/logo-sistemasDIF.png" // Absolute URL to image
   },
   debug: true,
+  secret: process.env.NEXT_PUBLIC_SECRET,
+  site: process.env.NEXTAUTH_URL,
+  pages: {
+    signIn: '/login',
+  },
   providers: [
     CredentialsProvider({
       id: 'credentials',
@@ -52,7 +57,7 @@ export default NextAuth({
         const { token, expiracion } = data
 
         // After sign-in, request data user to create session with a complete profile
-        const userRequest = await fetch(`${API}/api/cuentas/perfil`, {
+        const userRequest = await fetch(`${API}/api/cuentas/perfil/${payload.email}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -76,14 +81,10 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
-  secret: process.env.JWT_SECRET,
-  pages: {
-    signIn: '/login',
-  },
   callbacks: {
     async jwt({ token, user, account }) {
-      console.log('datos Callback: ', user)
-      console.log('token callback', token)
+      //console.log('datos Callback: ', user)
+      //console.log('token callback', token)
 
       if (user) {
         const { ...rest } = user;
