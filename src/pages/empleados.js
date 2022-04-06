@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Head from 'next/head'
 import { Box, Container } from '@mui/material'
 import { EmpleadosToolbar } from '../components/empleados/empleados-toolbar'
@@ -9,7 +9,6 @@ import { useQuery } from 'react-query'
 import { PostSkeleton } from 'src/components/empleados/PostSkeleton'
 import { useSession } from 'next-auth/react'
 import { useError } from 'src/hooks/useError'
-
 
 export default function Empleados({ adscripciones }) {
   const { addError } = useError()
@@ -23,6 +22,8 @@ export default function Empleados({ adscripciones }) {
       addError(`Ups!: ${error.message}`)
   })
 
+
+  const [filterFn, setFilterFn] = useState({ fn: items => { return items } })
 
   return (
     <>
@@ -39,13 +40,15 @@ export default function Empleados({ adscripciones }) {
         }}
       >
         <Container maxWidth={false}>
-          <EmpleadosToolbar empleadosData={empleados} />
+          <EmpleadosToolbar empleadosData={filterFn.fn(empleados)} />
           <Box sx={{ mt: 3 }}>
             {
               isLoading ?
                 <PostSkeleton />
                 :
                 <EmpleadosLista
+                  filterFn={filterFn}
+                  setFilterFn={setFilterFn}
                   empleados={empleados}
                   setTipo={setTipo}
                   adscripciones={adscripciones}

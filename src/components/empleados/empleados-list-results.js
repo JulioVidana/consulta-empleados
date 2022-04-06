@@ -7,9 +7,6 @@ import {
   Avatar,
   Box,
   Card,
-  Grid,
-  InputAdornment,
-  SvgIcon,
   TableBody,
   TableCell,
   TableRow,
@@ -21,12 +18,11 @@ import TableTools from './empleados-table-tool'
 import { getInitials } from '../../utils/get-initials'
 
 
-export const EmpleadosLista = ({ empleados, setTipo, adscripciones, ...rest }) => {
+export const EmpleadosLista = ({ empleados, setTipo, adscripciones, filterFn, setFilterFn, ...rest }) => {
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('sm'), {
     defaultMatches: true,
     noSsr: false
   });
-  const [filterFn, setFilterFn] = useState({ fn: items => { return items } })
   const headCells = [
     { id: 'nombre', label: 'Nombre', hidden: false },
     { id: 'clave', label: 'Clave', hidden: true },

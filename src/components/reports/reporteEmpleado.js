@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useReactToPrint } from 'react-to-print'
 import { format, parseISO } from 'date-fns'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
@@ -38,6 +38,7 @@ const ReporteEmpleado = ({ empleadoData, imagenSrc, famsData, expData }) => {
     { id: 'Checa', dato: empleadoData?.checa }
   ]
 
+
   return (
     <div className="cuerpo">
       <div className='header-row'>
@@ -52,6 +53,7 @@ const ReporteEmpleado = ({ empleadoData, imagenSrc, famsData, expData }) => {
           <img
             src={imagenSrc}
             alt={empleadoData.nombre}
+            onError={(e) => { e.target.onerror = null; e.target.src = "/static/images/avatars/Null.jpg" }}
           />
           <div>
             <div className="full-name">
@@ -163,7 +165,7 @@ const ReporteEmpleado = ({ empleadoData, imagenSrc, famsData, expData }) => {
           </div>
 
 
-          <div className="section">
+          {/*  <div className="section">
             <div className="section__title">DETALLE DE SUELDO</div>
             <table className="tabla">
               <thead>
@@ -190,7 +192,7 @@ const ReporteEmpleado = ({ empleadoData, imagenSrc, famsData, expData }) => {
 
               </tbody>
             </table>
-          </div>
+          </div> */}
 
 
           <div className="section">
@@ -392,7 +394,8 @@ const ReporteEmpleado = ({ empleadoData, imagenSrc, famsData, expData }) => {
 
 
       .section {
-          margin-bottom: 30px;
+          margin-top:40px;
+          margin-bottom: 40px;
       }
 
       .section:last-of-type {

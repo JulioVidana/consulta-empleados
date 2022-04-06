@@ -19,7 +19,7 @@ FROM node:16-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
-ENV NEXTAUTH_URL=http://empleados.difson.gob.mx
+ENV NEXTAUTH_URL=http://10.0.0.63:3000
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
